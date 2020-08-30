@@ -1,20 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_state_management/Model/task.dart';
 import 'package:flutter_state_management/screens/bottom_modal.dart';
 import 'package:flutter_state_management/widgets/task_list.dart';
-import 'package:flutter_state_management/widgets/task_tile.dart';
 class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<String> myTasks = ['Buy Milk','Buy Eggs','Buy Detergent'];
+
     return Scaffold(
-      backgroundColor: Colors.lightBlue,
+      backgroundColor: Colors.lightBlueAccent,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print("hey yazebi");
           showModalBottomSheet(context: context, builder:(context) => BottomModal());
         },
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: Colors.lightBlueAccent,
         child: Icon(
           Icons.add,
           color: Colors.white,
@@ -60,9 +59,7 @@ class TasksScreen extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0) , topRight: Radius.circular(20.0))
               ),
-              child: TasksList(
-                tasks: myTasks,
-              )
+              child: TasksList()
             ),
           ),
         ],
