@@ -1,13 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_state_management/screens/bottom_modal.dart';
+import 'package:flutter_state_management/widgets/task_list.dart';
+import 'package:flutter_state_management/widgets/task_tile.dart';
 class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<String> tasks = ['Buy Milk','Buy Eggs','Buy Detergent'];
+    List<String> myTasks = ['Buy Milk','Buy Eggs','Buy Detergent'];
     return Scaffold(
       backgroundColor: Colors.lightBlue,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          print("hey yazebi");
+          showModalBottomSheet(context: context, builder:(context) => BottomModal());
+        },
         backgroundColor: Colors.lightBlue,
         child: Icon(
           Icons.add,
@@ -54,30 +60,9 @@ class TasksScreen extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0) , topRight: Radius.circular(20.0))
               ),
-              child:
-                ListView.separated(
-                    itemBuilder: (BuildContext context , int index) {
-                      return Padding(
-                        padding: EdgeInsets.only(left:60.0 , top:20.0),
-                        child: ListTile(
-                          title:Text(tasks[index] ,
-                            style: TextStyle(
-                              fontSize: 15.0,
-                            ),
-                          ),
-                          trailing:  Checkbox(
-                            onChanged: (value) {
-                              print('changed : $value');
-                            },
-                            value: false,
-                          ),
-                        ),
-                      );
-                    },
-                    separatorBuilder: (BuildContext context , int index) {
-                      return SizedBox(height: 0.0,);
-                    },
-                    itemCount: tasks.length)
+              child: TasksList(
+                tasks: myTasks,
+              )
             ),
           ),
         ],
