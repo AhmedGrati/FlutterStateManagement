@@ -3,7 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_state_management/Model/task.dart';
 import 'package:flutter_state_management/screens/bottom_modal.dart';
 import 'package:flutter_state_management/widgets/task_list.dart';
-class TasksScreen extends StatelessWidget {
+class TasksScreen extends StatefulWidget {
+  @override
+  _TasksScreenState createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  List<Task> myTasks = [
+    Task(name:'Buy Milk' ),
+    Task(name:'Buy Eggs' ),
+    Task(name:'Buy Detergent' ),
+  ];
+
+  void addTask(Task task) {
+    setState(() {
+      myTasks.add(task);
+    });
+  }
+
+  void checkBoxCallBack(bool newState) {
+    print("hey");
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -11,7 +32,15 @@ class TasksScreen extends StatelessWidget {
       backgroundColor: Colors.lightBlueAccent,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showModalBottomSheet(context: context, builder:(context) => BottomModal());
+          showModalBottomSheet(context: context, builder:(context) => BottomModal(
+            pressButtonMethod: (String newTaskTitle) {
+              setState(() {
+                this.myTasks.add(Task(name: newTaskTitle));
+              });
+              Navigator.pop(context);
+            }
+          )
+          );
         },
         backgroundColor: Colors.lightBlueAccent,
         child: Icon(
@@ -59,7 +88,10 @@ class TasksScreen extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0) , topRight: Radius.circular(20.0))
               ),
-              child: TasksList()
+              child: TasksList(
+                tasks: myTasks,
+                checkBoxCallBack: this.checkBoxCallBack,
+              )
             ),
           ),
         ],

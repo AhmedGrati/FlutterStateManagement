@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_state_management/Model/task.dart';
 
 class BottomModal extends StatelessWidget {
+
+  final Function(String) pressButtonMethod;
+  BottomModal({this.pressButtonMethod});
+
   @override
   Widget build(BuildContext context) {
+    String newTaskTitle;
     return Container(
       color: Color(0xff757575),
       child: Container(
@@ -31,10 +37,15 @@ class BottomModal extends StatelessWidget {
                 decoration: InputDecoration(
                   focusColor: Colors.lightBlueAccent,
                 ),
+                onChanged: (value) {
+                  newTaskTitle = value;
+                },
               ),
               SizedBox(height: 20.0,),
               FlatButton(
-                onPressed: (){},
+                onPressed:() {
+                  this.pressButtonMethod(newTaskTitle);
+                },
                 color: Colors.lightBlueAccent,
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
