@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state_management/Model/task.dart';
+import 'package:flutter_state_management/Model/task_data.dart';
+import 'package:provider/provider.dart';
 
 class BottomModal extends StatelessWidget {
 
@@ -44,7 +46,8 @@ class BottomModal extends StatelessWidget {
               SizedBox(height: 20.0,),
               FlatButton(
                 onPressed:() {
-                  this.pressButtonMethod(newTaskTitle);
+                    Provider.of<TaskData>(context , listen: false).addTask(newTaskTitle);
+                    Navigator.pop(context);
                 },
                 color: Colors.lightBlueAccent,
                 child: Padding(

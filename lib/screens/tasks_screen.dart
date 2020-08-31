@@ -1,29 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_state_management/Model/task.dart';
+import 'package:flutter_state_management/Model/task_data.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_state_management/screens/bottom_modal.dart';
 import 'package:flutter_state_management/widgets/task_list.dart';
-class TasksScreen extends StatefulWidget {
-  @override
-  _TasksScreenState createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
-  List<Task> myTasks = [
-    Task(name:'Buy Milk' ),
-    Task(name:'Buy Eggs' ),
-    Task(name:'Buy Detergent' ),
-  ];
-
-  void addTask(Task task) {
-    setState(() {
-      myTasks.add(task);
-    });
-  }
-
-  void checkBoxCallBack(bool newState) {
-    print("hey");
-  }
+class TasksScreen extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +13,7 @@ class _TasksScreenState extends State<TasksScreen> {
       backgroundColor: Colors.lightBlueAccent,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showModalBottomSheet(context: context, builder:(context) => BottomModal(
-            pressButtonMethod: (String newTaskTitle) {
-              setState(() {
-                this.myTasks.add(Task(name: newTaskTitle));
-              });
-              Navigator.pop(context);
-            }
-          )
+          showModalBottomSheet(context: context, builder:(context) => BottomModal()
           );
         },
         backgroundColor: Colors.lightBlueAccent,
@@ -73,7 +47,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
                 SizedBox(height: 10.0,),
-                Text('12 Tasks' ,
+                Text('${Provider.of<TaskData>(context).myTasks.length} Tasks' ,
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -88,10 +62,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 color: Colors.white,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0) , topRight: Radius.circular(20.0))
               ),
-              child: TasksList(
-                tasks: myTasks,
-                checkBoxCallBack: this.checkBoxCallBack,
-              )
+              child: TasksList()
             ),
           ),
         ],
